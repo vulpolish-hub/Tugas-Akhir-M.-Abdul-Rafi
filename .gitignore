@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# ML outputs and model artifacts
+outputs*/
+checkpoints*/
+runs/
+wandb/
+mlruns/
+*.pth
+*.pt
+*.ckpt
+*.onnx
+
+# Large local datasets and archives
+RICE/
+EuroSAT/
+EuroSat_All_Images/
+Training_Data*/
+Training_Final_Safety/
+Training_Final_Shadows/
+Training_Fixed_V7/
+Training_Solid_Clouds/
+Training_Ultimate/
+Training_V8_Overlap/
+Training_V9_Inpainting/
+archive.zip
+EuroSAT.zip
+*.zip
+data_pixel_satelit.csv
+
+# Generated images/results
+Cloud_Removed*.png
+Result*.png
+output.png
+Cloud.png
+2025-*-Sentinel-2*.png
+*Sentinel-2*.png
+*.tmp
+
+# Downloaded reference PDFs; keep citations/notes in docs instead
+Referensi_TA_ITS_2025/
+
+# Office temporary files
+~$*.docx
+~$*.xlsx
+~$*.pptx
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
