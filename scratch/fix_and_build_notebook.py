@@ -29,7 +29,7 @@ if model_cell_idx == -1 or train_cell_idx == -1:
     print("Error: Could not locate cells!")
     exit(1)
 
-# 3. Update Model Cell (append Discriminator and Spectral Norm + Init)
+# 3. Update Model Cell (append ResNetDiscriminator definition and initialization)
 model_src = nb['cells'][model_cell_idx]['source']
 if isinstance(model_src, list):
     model_src = "".join(model_src)
@@ -78,15 +78,13 @@ discriminator_code = (
     "        return self.fc(x)\n\n"
     "# GAN Initialization\n"
     "netD = ResNetDiscriminator(in_channels=13, base=CFG.BASE_CHANNELS).to(DEVICE)\n"
-    "optimizerD = torch.optim.Adam(netD.parameters(), lr=CFG.LR, betas=(0.5, 0.999))\n"
-    "criterion_GAN = nn.BCEWithLogitsLoss()\n"
-    "print('Discriminator and GAN losses initialized successfully.')\n"
+    "print('Discriminator model initialized successfully.')\n"
 )
 
 nb['cells'][model_cell_idx]['source'] = [model_src + discriminator_code]
 print("Model cell updated.")
 
-# 4. Update Training Cell (replace with GAN adversarial training loop)
+# 4. Update Training Cell (replace with GAN adversarial training loop and optimizer initialization)
 new_training_source = (
     "def mae(pred, target):\n"
     "    return F.l1_loss(pred, target)\n\n"
@@ -255,6 +253,12 @@ new_training_source = (
     "    plt.tight_layout()\n"
     "    plt.savefig(CFG.OUT_DIR / \"training_curves.png\", dpi=150)\n"
     "    plt.close()\n\n"
+    "# Optimizer, Schedulers and GAN Loss Definitions\n"
+    "optimizer = torch.optim.AdamW(model.parameters(), lr=CFG.LR, weight_decay=1e-4)\n"
+    "scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=CFG.EPOCHS, eta_min=CFG.LR * 0.1)\n\n"
+    "optimizerD = torch.optim.AdamW(netD.parameters(), lr=CFG.LR, weight_decay=1e-4)\n"
+    "schedulerD = torch.optim.lr_scheduler.CosineAnnealingLR(optimizerD, T_max=CFG.EPOCHS, eta_min=CFG.LR * 0.1)\n"
+    "criterion_GAN = nn.BCEWithLogitsLoss()\n\n"
     "print(\"strategy: hard/soft copy outside mask; spectral-normalized ResNet-18 GAN; heavy-cloud oversampling\")\n\n"
     "if CFG.RUN_TRAINING:\n"
     "    history = []\n"
@@ -263,7 +267,7 @@ new_training_source = (
     "    for epoch in range(1, CFG.EPOCHS + 1):\n"
     "        train_loss, train_d_loss, train_heavy_loss = train_one_epoch(train_loader, epoch, CFG.EPOCHS)\n"
     "        val_metrics = evaluate(val_loader, label=\"val\")\n"
-        "        \n"
+    "        \n"
     "        log_row = {\n"
     "            \"epoch\": epoch,\n"
     "            \"train_loss\": train_loss,\n"
@@ -285,6 +289,10 @@ new_training_source = (
     "            print(f\"  ==> Saved best model weights with cloud MAE {best_cloud_mae:.6f}\")\n"
     "            \n"
     "        torch.save(model.state_dict(), CFG.OUT_DIR / \"last_multitemporal_resunet_hardmask.pth\")\n"
+    "        \n"
+    "        # Step schedulers\n"
+    "        scheduler.step()\n"
+    "        schedulerD.step()\n"
     "        \n"
     "        # Save history periodically\n"
     "        history_df = pd.DataFrame(history)\n"
