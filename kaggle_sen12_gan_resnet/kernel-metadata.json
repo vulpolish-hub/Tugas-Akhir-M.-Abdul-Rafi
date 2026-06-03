@@ -1,0 +1,16 @@
+{
+  "id": "vulpolish/sen12ms-cr-ts-cloud-removal-gan",
+  "title": "sen12ms-cr-ts-cloud-removal-gan",
+  "code_file": "sen12ms-cr-ts-cloud-removal-gan.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [
+    "vulpolish/asiawest-n"
+  ],
+  "kernel_sources": [],
+  "competition_sources": []
+}
