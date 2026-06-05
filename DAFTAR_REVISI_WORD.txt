@@ -1,0 +1,64 @@
+========================================================================
+DAFTAR REVISI DOKUMEN WORD TESIS (BAB I, BAB III, & BAB IV)
+Proyek: Cloud Removal Multi-Temporal Sentinel-1 & Sentinel-2 (SEN12MS-CR-TS)
+========================================================================
+
+Dokumen ini disusun sebagai panduan to-do list untuk merevisi berkas Word Anda
+ agar selaras dengan hasil eksperimen dan kode riil proyek.
+
+------------------------------------------------------------------------
+TO-DO LIST 1: REVISI INFORMASI UTAMA & METODOLOGI (BAB I & BAB III)
+------------------------------------------------------------------------
+[ ] Ganti Dataset dari "EuroSAT (simulasi awan)" menjadi "SEN12MS-CR-TS 
+    (Asia Barat / asiaWest_n)".
+[ ] Ganti tipe citra dari "Single-Temporal (EuroSAT)" menjadi 
+    "Multi-Temporal (Deret Waktu)" yang menggabungkan 4 tanggal perekaman.
+[ ] Tambahkan penjelasan sensor radar Sentinel-1 SAR (VV & VH) sebagai 
+    data bantu penembus awan tebal untuk melengkapi data optik Sentinel-2.
+[ ] Revisi arsitektur model:
+    - Generator: Multi-Temporal ResUNet (input 64 kanal).
+    - Diskriminator (GAN): ResNet-18 dengan Spectral Normalization 
+      (ganti dari draf sebelumnya yang menuliskan ResNet-50 standard).
+[ ] Ganti Loss Function:
+    - Gunakan: L1 Loss (MAE) + Gradient Loss + Adversarial Hinge Loss.
+    - HAPUS referensi "Dice Loss / Dice Score Coefficient (DSC)" karena 
+      Dice Loss untuk klasifikasi biner awan, sedangkan proyek kita adalah 
+      restorasi nilai piksel kontinu (regresi reflektansi [0, 1]).
+
+------------------------------------------------------------------------
+TO-DO LIST 2: REVISI METRIK EVALUASI & STATISTIKA (BAB I, III, & IV)
+------------------------------------------------------------------------
+[ ] HAPUS metrik klasifikasi (Intersection over Union / IoU, F1-Score, Akurasi).
+[ ] GANTI dengan metrik rekonstruksi gambar kontinu yang digunakan di kode:
+    - MAE (Mean Absolute Error)
+    - RMSE (Root Mean Squared Error)
+    - PSNR (Peak Signal-to-Noise Ratio)
+    - SSIM (Structural Similarity Index Measure)
+    - Koefisien Korelasi Pearson (r)
+[ ] TAMBAHKAN penjelasan mengenai:
+    - Uji t Berpasangan (Paired t-test) untuk menguji perbedaan rata-rata MAE.
+    - Koefisien Determinasi (R2) untuk mengukur variabilitas target bebas awan.
+    - Analisis Stratifikasi Awan (Awan Ringan, Sedang, Tebal) untuk melihat 
+      performa model di berbagai ketebalan awan.
+
+------------------------------------------------------------------------
+PENJELASAN PENTING: APA ITU "PSEUDO GROUND TRUTH"?
+------------------------------------------------------------------------
+Dalam remote sensing (penginderaan jauh), kita sering kali tidak memiliki 
+citra "Ground Truth" (target jernih tanpa awan) yang diambil pada waktu 
+yang sama persis dengan citra berawan. 
+
+Untuk melatih model agar bisa memulihkan piksel, kita membuat target bersih 
+buatan yang disebut "Pseudo Ground Truth" (Citra Kebenaran Semu):
+
+1. Pemilihan Temporal: Dari 4 tanggal perekaman untuk wilayah (patch) yang sama, 
+   kita menghitung peta probabilitas awan untuk setiap tanggal secara spasial.
+2. Komposit Piksel Terbaik: Pada setiap koordinat piksel (x, y), sistem akan 
+   mencari tanggal perekaman mana yang memiliki nilai probabilitas awan 
+   paling kecil (paling jernih).
+3. Blending Eksponensial: Piksel-piksel jernih dari tanggal-tanggal tersebut 
+   digabungkan menggunakan pembobotan eksponensial (piksel dengan probabilitas 
+   awan terendah mendapat bobot terbesar).
+4. Hasil Akhir: Terbentuklah citra komposit utuh [13, 256, 256] bebas awan yang 
+   secara spasial dan statistik bertindak sebagai target latih (Ground Truth) 
+   bagi generator untuk menyamai piksel bumi yang tertutup awan.
