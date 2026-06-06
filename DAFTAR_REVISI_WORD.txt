@@ -42,10 +42,49 @@ TO-DO LIST 2: REVISI METRIK EVALUASI & STATISTIKA (BAB I, III, & IV)
       performa model di berbagai ketebalan awan.
 
 ------------------------------------------------------------------------
+TO-DO LIST 3: VALIDASI & UPDATE DAFTAR PUSTAKA (BIBLIOGRAPHY)
+------------------------------------------------------------------------
+Tinjauan pustaka draf Anda saat ini:
+[ ] Helber, P., et al. (2019) (EuroSAT) -> TIDAK VALID. Ganti dengan Ebel et al. (2022).
+[ ] Sudre, C. H., et al. (2017) (Dice Loss) -> TIDAK VALID. Ganti dengan Blau & Michaeli (2018).
+
+Tambahkan referensi akademis riil (APA Style) berikut ke daftar pustaka Anda:
+
+1. Dataset SEN12MS-CR-TS (Wajib):
+   Kutipan APA:
+   Ebel, P., Xu, Y., Schmitt, M., & Zhu, X. X. (2022). SEN12MS-CR-TS: A remote sensing data set for multi-modal multi-temporal cloud removal. IEEE Transactions on Geoscience and Remote Sensing, 60, 1-14.
+   DOI: https://doi.org/10.1109/TGRS.2022.3146246
+
+2. Arsitektur ResNet (Wajib untuk Bab II & Diskriminator):
+   Kutipan APA:
+   He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR) (pp. 770-778).
+   DOI: https://doi.org/10.1109/CVPR.2016.90
+
+3. Arsitektur ResUNet (Wajib untuk Bab II & Generator):
+   Kutipan APA:
+   Zhang, Z., Liu, Q., & Wang, Y. (2018). Road extraction by deep residual U-Net. IEEE Geoscience and Remote Sensing Letters, 15(5), 749-753.
+   DOI: https://doi.org/10.1109/LGRS.2018.2802944
+
+4. Spectral Normalization (Wajib untuk Diskriminator GAN):
+   Kutipan APA:
+   Miyato, T., Kataoka, T., Koyama, M., & Yoshida, Y. (2018). Spectral normalization for generative adversarial networks. In International Conference on Learning Representations (ICLR).
+   Link: https://arxiv.org/abs/1802.05957
+
+5. Perception-Distortion Trade-off (Sangat Bagus untuk Pembahasan Bab IV):
+   Kutipan APA:
+   Blau, Y., & Michaeli, T. (2018). The perception-distortion tradeoff. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR) (pp. 6228-6237).
+   DOI: https://doi.org/10.1109/CVPR.2018.00652
+
+6. Metrik SSIM (Wajib untuk Bab II & Metrik Evaluasi):
+   Kutipan APA:
+   Wang, Z., Bovik, A. C., Sheikh, H. R., & Simoncelli, E. P. (2004). Image quality assessment: from error visibility to structural similarity. IEEE Transactions on Image Processing, 13(4), 600-612.
+   DOI: https://doi.org/10.1109/TIP.2003.819861
+
+------------------------------------------------------------------------
 PENJELASAN PENTING: APA ITU "PSEUDO GROUND TRUTH"?
 ------------------------------------------------------------------------
 Dalam remote sensing (penginderaan jauh), kita sering kali tidak memiliki 
-citra "Ground Truth" (target jernih tanpa awan) yang diambil pada waktu 
+citra "Ground Truth" (citra target jernih tanpa awan) yang diambil pada waktu 
 yang sama persis dengan citra berawan. 
 
 Untuk melatih model agar bisa memulihkan piksel, kita membuat target bersih 
