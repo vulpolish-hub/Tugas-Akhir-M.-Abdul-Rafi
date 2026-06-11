@@ -70,3 +70,12 @@ graph TD
 Selain kode program, repositori ini juga memuat dokumen resmi Tugas Akhir yang telah diselesaikan:
 1. **`Laporan dari Penyuka Idol Banyak Makan.docx`**: Buku Laporan Tugas Akhir lengkap (berisi Bab I sampai Bab V, grafik kurva pelatihan, serta seluruh 32 Lampiran kode pemrograman dan visualisasi).
 2. **`Makalah dari Penyuka Idol Banyak Makan.docx`**: Naskah ringkas Artikel Ilmiah / Makalah (6-8 halaman) yang siap disubmit untuk publikasi jurnal atau prosiding seminar.
+
+---
+
+## Ucapan Terima Kasih (Acknowledgements)
+
+Penulis menyampaikan rasa terima kasih dan penghargaan yang setinggi-tingginya kepada pihak-pihak yang telah mendukung penyelesaian Tugas Akhir ini:
+* **Ibu Dr. Dra. Kartika Fithriasari, M.Si.** selaku Dosen Pembimbing, atas arahan, bimbingan, kesabaran, dan masukan berharga sepanjang pengerjaan penelitian ini.
+* **Bapak Prof. NUR Iriawan, M.Ikomp, Ph.D** dan **Ibu Tintrim Dwi Ary Widhianingsih, S.Si, M.Stat, Ph.D** selaku Dosen Penguji, atas kritik, saran, koreksi, dan masukan yang sangat bermanfaat untuk penyempurnaan Tugas Akhir ini.
+* **Fikri** selaku sahabat dekat, yang secara khusus penulis ucapkan terima kasih karena telah berbaik hati memfasilitasi kediaman/tempat berkumpul untuk pengerjaan Tugas Akhir ini hingga penulis menginap berhari-hari demi menyelesaikan penelitian ini.
